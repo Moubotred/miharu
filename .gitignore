@@ -4,3 +4,8 @@ lib/
 lib64/
 pyvenv.cfg
 .gitignore
+
+/apis/__init__.py
+/apis/__pycache__/
+/utils/__pycache__/
+/utils/syncro/__pycache__/

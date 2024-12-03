@@ -1,5 +1,5 @@
 import asyncio
-from syncro import syncro_convertidor
+from utils.syncro import syncro_convertidor
 
 async def ConvertirPDF(suministro):
     if suministro:
