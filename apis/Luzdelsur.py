@@ -3,7 +3,6 @@ import base64
 import aiofiles
 import sys
 sys.path.append('/home/kimshizi/Proyects/miharu/')
-
 from utils import directorio
 
 async def LuzdelsurRecibo(suministro:str) -> bool:

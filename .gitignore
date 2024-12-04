@@ -10,3 +10,5 @@ pyvenv.cfg
 /utils/__pycache__/
 /utils/syncro/__pycache__/
 __pycache__/
+
+test/__pycache__/
