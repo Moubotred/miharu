@@ -9,3 +9,4 @@ pyvenv.cfg
 /apis/__pycache__/
 /utils/__pycache__/
 /utils/syncro/__pycache__/
+__pycache__/
