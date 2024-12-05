@@ -10,4 +10,4 @@ async def test_LuzdelsurRecibo_simple():
     resultado = await LuzdelsurRecibo(suministro)
     
     # Verificar si se devuelve el archivo esperado
-    # assert resultado == f"{suministro}.png"
+    assert resultado.endswith('.png')

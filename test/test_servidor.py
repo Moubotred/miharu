@@ -2,6 +2,7 @@
 
 from fastapi import FastAPI, HTTPException
 from apis.Luzdelsur import LuzdelsurRecibo
+from apis.Envioshasber import SistemaEnviosHasber
 import os
 
 app = FastAPI()
@@ -19,5 +20,19 @@ async def obtener_recibo(suministro: str):
         return {"suministro": resultado}
     
     else:
-        raise HTTPException(status_code=500, detail="No se pudo generar el archivo")
+        raise HTTPException(status_code=500, detail=resultado)
 
+@app.get("/actividad")
+async def obtener_recibo(suministro: str):
+    if not suministro:
+        raise HTTPException(status_code=400, detail="No se proporcionó el número de suministro")
+    
+    resultado = await SistemaEnviosHasber(suministro)
+
+    # Verifica si el archivo se generó
+    if resultado and os.path.exists(os.path.join(os.getcwd(),resultado)):
+
+        return {"suministro": resultado}
+    
+    else:
+        raise HTTPException(status_code=500, detail=resultado)
