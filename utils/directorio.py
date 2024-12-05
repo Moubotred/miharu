@@ -1,5 +1,5 @@
 import asyncio
-from apis.utils.syncro import syncro_temporal
+from utils.syncro import syncro_temporal
 
 async def Directorio(suministro):
     loop = asyncio.get_running_loop()

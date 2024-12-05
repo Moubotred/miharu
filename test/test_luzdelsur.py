@@ -1,5 +1,5 @@
 import pytest
-from apis.Luzdelsur import LuzdelsurRecibo
+from .apis.Luzdelsur import LuzdelsurRecibo
 
 @pytest.mark.asyncio
 async def test_LuzdelsurRecibo_simple():
