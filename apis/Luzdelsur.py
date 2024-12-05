@@ -4,7 +4,6 @@ import aiofiles
 from utils.directorio import Directorio
 import asyncio
 
-
 async def LuzdelsurRecibo(suministro):
     # URL de la API
     url = "https://www.luzdelsur.pe/es/VerPagarRecibo/ObtenerImagenBoletaLibre"
@@ -42,11 +41,15 @@ async def LuzdelsurRecibo(suministro):
         try:
             archivo = f'{suministro}.png'
             async with aiofiles.open(archivo, "wb") as img_file:
+                # print('paso 1')
+
                 await img_file.write(base64.b64decode(imagen_base64))
-                await Directorio(suministro=archivo)
+                # print('paso 2')
+
+                # await Directorio(suministro=archivo)
+                # print('paso 3')
+
             return f"{suministro}.png"
         
         except TypeError:
             return "La API no devolvió una imagen válida en formato base64"
-
-asyncio.run(LuzdelsurRecibo(7998))
