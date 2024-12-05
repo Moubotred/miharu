@@ -48,23 +48,22 @@ async def SistemaEnviosHasber(suministro:str) -> str:
             if response.status_code == 200:
                 data = response.json()
                 # Busca la clave de diccionario especificada
-                seleccionar = [data['rows'][item]['artnombre'] == 'CARTAS / REEMPLAZO DE MEDIDOR EMPRESAS' for item in range(len(data['rows']))]
 
-                if seleccionar:
+                try:
+
+                    seleccionar = [data['rows'][item]['artnombre'] == 'CARTAS / REEMPLAZO DE MEDIDOR EMPRESAS' for item in range(len(data['rows']))]
+                    if seleccionar:
+                        UrlImage = str(data['rows'][seleccionar.index(True)].get('imagen1'))
+                        response_data = await client.get(UrlImage)
+                        formato_TIF = await Descargar(response=response_data,nombre_archivo=suministro)
+                        formato_PDF = await ConvertirPDF(suministro=formato_TIF)
+                        return formato_PDF
                     
-                    UrlImage = str(data['rows'][seleccionar.index(True)].get('imagen1'))
-                    response_data = await client.get(UrlImage)
-                    formato_TIF = await Descargar(response=response_data,nombre_archivo=suministro)
-                    formato_PDF = await ConvertirPDF(suministro=formato_TIF)
-
-                return 'solicitud exitosa'
-                    # formato_TIF = await utils.Descargar(UrlImage,nombre_archivo=suministro)
-                    # formato_PDF = await utils.ConvertirPDF(suministro=formato_TIF)
-                    # await utils.Directorio(suministro=formato_PDF)
+                except Exception as e:
+                    print('sinstaxis en espera')
+                    return 'la actividad no esta programda aun'
 
         except httpx.HTTPStatusError as e:
-            print(f"Error en la solicitud: {e.response.status_code}")
-            return None
+            return f"Error en la solicitud: {e.response.status_code}"
         except httpx.RequestError as e:
-            print(f"Error de conexión: {e}")
-            return None
+            return f"Error de conexión: {e}"
