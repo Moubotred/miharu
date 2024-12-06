@@ -35,7 +35,7 @@ async def LuzdelsurRecibo(suministro):
         imagen_base64 = data['datos']['archivoBase64']
 
         if not imagen_base64:
-            return 'el recibo no existe en en la web'
+            return '⚒️ el recibo no existe en en la web 🥷'
         
         # Decodificar y guardar la imagen en un archivo de manera asíncrona
         try:
@@ -46,3 +46,6 @@ async def LuzdelsurRecibo(suministro):
         
         except TypeError:
             return "La API no devolvió una imagen válida en formato base64"
+        
+    elif response.status_code != 200:
+        return '⚠️ la web actualizo el codigo informar inmediatamente al adminstrador del Bot Miharu ☣️'

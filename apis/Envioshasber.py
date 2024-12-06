@@ -49,19 +49,21 @@ async def SistemaEnviosHasber(suministro:str) -> str:
                 data = response.json()
                 # Busca la clave de diccionario especificada
 
-                try:
-
-                    seleccionar = [data['rows'][item]['artnombre'] == 'CARTAS / REEMPLAZO DE MEDIDOR EMPRESAS' for item in range(len(data['rows']))]
-                    if seleccionar:
-                        UrlImage = str(data['rows'][seleccionar.index(True)].get('imagen1'))
-                        response_data = await client.get(UrlImage)
-                        formato_TIF = await Descargar(response=response_data,nombre_archivo=suministro)
-                        formato_PDF = await ConvertirPDF(suministro=formato_TIF)
-                        return formato_PDF
+                seleccionar = [data['rows'][item]['artnombre'] == 'CARTAS / REEMPLAZO DE MEDIDOR EMPRESAS' for item in range(len(data['rows']))]
+                if seleccionar:
+                    UrlImage = str(data['rows'][seleccionar.index(True)].get('imagen1'))
+                    response_data = await client.get(UrlImage)
+                    formato_TIF = await Descargar(response=response_data,nombre_archivo=suministro)
+                    formato_PDF = await ConvertirPDF(suministro=formato_TIF)
+                    return formato_PDF
+                
+                else:
+                    return '⚒️ la actividad no esta programada 🥷'
+                
+            elif response.status_code != 200:
+                return '⚠️ la web actualizo el codigo informar inmediatamente al adminstrador del Bot Miharu ☣️'
                     
-                except Exception as e:
-                    print('sinstaxis en espera')
-                    return 'la actividad no esta programda aun'
+                
 
         except httpx.HTTPStatusError as e:
             return f"Error en la solicitud: {e.response.status_code}"
