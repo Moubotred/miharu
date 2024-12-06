@@ -44,6 +44,8 @@ async def LuzdelsurRecibo(suministro):
             async with aiofiles.open(archivo, "wb") as img_file:
                 await img_file.write(base64.b64decode(imagen_base64))
                 await anime(suministro)
+                await Directorio(archivo,r'/home/kimshizi/Proyects/miharu/descargas')
+                
             return archivo
         
         except TypeError:

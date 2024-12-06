@@ -7,6 +7,8 @@ import os
 
 app = FastAPI()
 
+descargas = '/home/kimshizi/Proyects/miharu/descargas/png'
+
 @app.get("/recibo")
 async def obtener_recibo(suministro: str):
     if not suministro:
@@ -14,8 +16,10 @@ async def obtener_recibo(suministro: str):
     
     resultado = await LuzdelsurRecibo(suministro)
 
+    print(resultado)
+
     # Verifica si el archivo se generó
-    if resultado and os.path.exists(os.path.join(os.getcwd(),resultado)):
+    if resultado and os.path.exists(os.path.join(descargas,resultado)):
 
         return {"suministro": resultado}
     
@@ -30,7 +34,7 @@ async def obtener_recibo(suministro: str):
     resultado = await SistemaEnviosHasber(suministro)
 
     # Verifica si el archivo se generó
-    if resultado and os.path.exists(os.path.join(os.getcwd(),resultado)):
+    if resultado and os.path.exists(os.path.join(descargas,resultado)):
 
         return {"suministro": resultado}
     
