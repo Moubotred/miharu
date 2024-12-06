@@ -2,6 +2,7 @@ import httpx
 import base64
 import aiofiles
 from utils.directorio import Directorio
+from utils.tuning import anime
 import asyncio
 
 async def LuzdelsurRecibo(suministro):
@@ -42,6 +43,7 @@ async def LuzdelsurRecibo(suministro):
             archivo = f'{suministro}.png'
             async with aiofiles.open(archivo, "wb") as img_file:
                 await img_file.write(base64.b64decode(imagen_base64))
+                await anime(suministro)
             return archivo
         
         except TypeError:
