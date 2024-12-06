@@ -8,9 +8,7 @@ async def test_hasber():
     
     # Llamar a la función
     resultado = await SistemaEnviosHasber(suministro)
-    
-    print(resultado)
 
     # Verificar si se devuelve el archivo esperado
-    # assert resultado.endswith('.pdf')
-    assert resultado == None
+    assert resultado.endswith('.pdf')
+    # assert resultado == None
