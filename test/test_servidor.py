@@ -16,8 +16,6 @@ async def obtener_recibo(suministro: str):
     
     resultado = await LuzdelsurRecibo(suministro)
 
-    print(resultado)
-
     # Verifica si el archivo se generó
     if resultado and os.path.exists(os.path.join(descargas,resultado)):
 
