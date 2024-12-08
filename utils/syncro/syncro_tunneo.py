@@ -49,8 +49,11 @@ def recibo_anime(suministro):
     draw = ImageDraw.Draw(overlay_oficial)
 
 
-    logo_oficial = os.path.join('/home/kimshizi/Proyects/miharu/experimental','anime','fracazado.png') 
-    logo = Image.open(logo_oficial).convert("RGBA")
+    # https://raw.githubusercontent.com/Moubotred/Noman/refs/heads/main/fracazado.png
+    # logo_oficial = os.path.join('/home/kimshizi/Proyects/miharu/experimental','anime','fracazado.png') 
+
+    logo_oficial = requests.get('https://raw.githubusercontent.com/Moubotred/Noman/refs/heads/main/fracazado.png')
+    logo = Image.open(BytesIO(logo_oficial.content)).convert("RGBA")
     logo = logo.resize((posicion['_resize_anime'][0],posicion['_resize_anime'][1]))  # Redimensionar si es necesario
     overlay_oficial.paste(logo, (posicion['_posicion_anime'][0],posicion['_posicion_anime'][1]), logo)  # Pegar con transparencia
 
