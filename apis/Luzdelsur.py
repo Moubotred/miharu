@@ -1,8 +1,10 @@
+import os
 import httpx
 import base64
 import aiofiles
 from utils.directorio import Directorio
 from utils.tuning import anime
+from getpass import getuser
 import asyncio
 
 async def LuzdelsurRecibo(suministro):
@@ -40,11 +42,14 @@ async def LuzdelsurRecibo(suministro):
         
         # Decodificar y guardar la imagen en un archivo de manera asíncrona
         try:
+            descargas = 'Proyects/miharu/descargas'
+            home = os.path.expanduser('~/')
+            directorio = os.path.abspath(os.path.join(home,descargas))
             archivo = f'{suministro}.png'
             async with aiofiles.open(archivo, "wb") as img_file:
                 await img_file.write(base64.b64decode(imagen_base64))
                 await anime(suministro)
-                await Directorio(archivo,r'/home/kimshizi/Proyects/miharu/descargas')
+                await Directorio(archivo,directorio)
                 
             return archivo
         
