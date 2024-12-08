@@ -9,7 +9,7 @@ def Archivo_temporal(suministro, pwd):
     suministro_path = os.path.abspath(suministro)
 
     if not os.path.isfile(suministro_path):
-        print(f"El archivo '{suministro}' no existe.")
+        # print(f"El archivo '{suministro}' no existe.")
         return False
 
     # Clasifica según la extensión
