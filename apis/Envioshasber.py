@@ -48,15 +48,15 @@ async def SistemaEnviosHasber(suministro:str) -> str:
             response = await client.post(url, headers=headers, data=data)
             if response.status_code == 200:
                 data = response.json()
-                # Busca la clave de diccionario especificada
 
-                seleccionar = [data['rows'][item]['artnombre'] == 'CARTAS / REEMPLAZO DE MEDIDOR EMPRESAS' for item in range(len(data['rows']))]
-                if seleccionar:
-                    
+                # Extraer todas las filas de datos
+                rows = data['rows']
+                seleccionar = [row['artnombre'] == 'CARTAS / REEMPLAZO DE MEDIDOR EMPRESAS' for row in rows]
+
+                if seleccionar[0]:
                     descargas = 'miharu/descargas'
                     home = os.path.expanduser('~/')
                     directorio = os.path.abspath(os.path.join(home,descargas))
-
                     UrlImage = str(data['rows'][seleccionar.index(True)].get('imagen1'))
                     response_data = await client.get(UrlImage)
                     formato_TIF = await Descargar(response=response_data,nombre_archivo=suministro)
