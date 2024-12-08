@@ -53,7 +53,7 @@ async def SistemaEnviosHasber(suministro:str) -> str:
                 rows = data['rows']
                 seleccionar = [row['artnombre'] == 'CARTAS / REEMPLAZO DE MEDIDOR EMPRESAS' for row in rows]
 
-                if seleccionar[0]:
+                if any(seleccionar):
                     descargas = 'miharu/descargas'
                     home = os.path.expanduser('~/')
                     directorio = os.path.abspath(os.path.join(home,descargas))
