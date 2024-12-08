@@ -1,3 +1,4 @@
+import os
 import httpx
 import aiofiles
 from utils.descargar import Descargar
@@ -51,10 +52,16 @@ async def SistemaEnviosHasber(suministro:str) -> str:
 
                 seleccionar = [data['rows'][item]['artnombre'] == 'CARTAS / REEMPLAZO DE MEDIDOR EMPRESAS' for item in range(len(data['rows']))]
                 if seleccionar:
+                    
+                    descargas = 'miharu/descargas'
+                    home = os.path.expanduser('~/')
+                    directorio = os.path.abspath(os.path.join(home,descargas))
+
                     UrlImage = str(data['rows'][seleccionar.index(True)].get('imagen1'))
                     response_data = await client.get(UrlImage)
                     formato_TIF = await Descargar(response=response_data,nombre_archivo=suministro)
                     formato_PDF = await ConvertirPDF(suministro=formato_TIF)
+                    await Directorio(formato_PDF,directorio)
                     return formato_PDF
                 
                 else:
