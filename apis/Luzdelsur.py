@@ -44,7 +44,7 @@ async def LuzdelsurRecibo(suministro):
         
         # Decodificar y guardar la imagen en un archivo de manera asíncrona
         try:
-            descargas = 'Proyects/miharu/descargas'
+            descargas = 'miharu/descargas'
             home = os.path.expanduser('~/')
             directorio = os.path.abspath(os.path.join(home,descargas))
             archivo = f'{suministro}.png'
